@@ -1,2 +1,1 @@
-web: gunicorn 23jan.wsgi --log-file -
-
+web: gunicorn 23jan:app --log-file=-
