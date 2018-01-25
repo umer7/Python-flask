@@ -1,1 +1,2 @@
-web: gunicorn -b 0.0.0.0:$PORT app:app
+web: gunicorn 23jan.wsgi --log-file -
+
