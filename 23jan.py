@@ -22,7 +22,8 @@ def use():
 
         conn = psycopg2.connect( database=url.path[1:],    user=url.username,    password=url.password, host=url.hostname, port=url.port )
         cur = conn.cursor()
-        cur.execute("CREATE TABLE IF NOT EXISTS test1 (id serial PRIMARY KEY, qa text, ans text);")        
+        cur.execute("CREATE TABLE IF NOT EXISTS test1 (id serial PRIMARY KEY, qa text, ans text);") 
+        print("sucessfull")
     except:
         print("failed")
     return 'Hello World!'
