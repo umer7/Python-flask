@@ -5,6 +5,10 @@ Created on Tue Jan 23 21:36:56 2018
 @author: umer
 """
 from flask import Flask
+import os
+from urllib import parse
+import psycopg2
+
 
 
 app = Flask(__name__)
@@ -12,6 +16,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def use():
+    try:
+        parse.uses_netloc.append("postgres")
+        url = parse.urlparse(os.environ["DATABASE_URL"])
+
+        conn = psycopg2.connect( database=url.path[1:],    user=url.username,    password=url.password, host=url.hostname, port=url.port )
+        cur = conn.cursor()
+        cur.execute("CREATE TABLE IF NOT EXISTS test1 (id serial PRIMARY KEY, qa text, ans text);")        
+    except:
+        print("failed")
     return 'Hello World!'
 
 
