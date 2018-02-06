@@ -84,7 +84,7 @@ def query(query):
 
 
 
-
+WORD = re.compile(r'\w+')
 def get_cosine(vec1, vec2):
     vec1 = Counter(WORD.findall(vec1))
     vec2 = Counter(WORD.findall(vec2))
