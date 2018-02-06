@@ -67,10 +67,19 @@ def query(query):
         #float secnd=DistJaccard(text1, text2)
        # print(secnd)
     except:
-        print("comarision failed")
         
-
-    
+        print("cosine failed")
+        
+    try:
+        dis2=float(DistJaccard(str(text1),str(text1)))
+        print(dis2)
+        #float first=get_cosine(text1,text2)
+        #print(first)
+        #float secnd=DistJaccard(text1, text2)
+       # print(secnd)
+    except: 
+        print("jack failed")  
+        
     return 'query is  %s' % query
 
 
