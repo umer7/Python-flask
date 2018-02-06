@@ -58,7 +58,7 @@ def query(query):
     url = parse.urlparse(os.environ["DATABASE_URL"])
     conn = psycopg2.connect( database=url.path[1:],    user=url.username,    password=url.password, host=url.hostname, port=url.port )
     cur = conn.cursor()
-    cur.execute("SELECT * FROM qa11 ;")
+    #cur.execute("SELECT * FROM qa11 ;")
     #cur.execute("CREATE TABLE IF NOT EXISTS qa11 ( qa text);")
     print(cur.fetchone())
     text1 = 'I like cat'
