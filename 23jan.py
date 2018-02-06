@@ -54,9 +54,13 @@ def ans(answer):
 
 @app.route('/query/<query>', methods=['GET', 'POST'])
 def query(query):
-    #conn = psycopg2.connect("dbname='db1' user='postgres' password='umer'")
-    #cur = conn.cursor()
-    
+    parse.uses_netloc.append("postgres")
+    url = parse.urlparse(os.environ["DATABASE_URL"])
+    conn = psycopg2.connect( database=url.path[1:],    user=url.username,    password=url.password, host=url.hostname, port=url.port )
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM qa11 ;")
+    #cur.execute("CREATE TABLE IF NOT EXISTS qa11 ( qa text);")
+    print(cur.fetchone())
     text1 = 'I like cat'
     #text2 = 'I liikee dog'
     text2=remove_spell_errors(query)
