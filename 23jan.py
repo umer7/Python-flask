@@ -65,7 +65,7 @@ def query(query):
         #print(first)
         #float secnd=DistJaccard(text1, text2)
        # print(secnd)
-   except:
+    except:
         print("comarision failed")
         
 
