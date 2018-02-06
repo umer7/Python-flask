@@ -23,10 +23,7 @@ def use():
     try:
         parse.uses_netloc.append("postgres")
         url = parse.urlparse(os.environ["DATABASE_URL"])
-
         conn = psycopg2.connect( database=url.path[1:],    user=url.username,    password=url.password, host=url.hostname, port=url.port )
-        #cur = conn.cursor()
-        #cur.execute("CREATE TABLE IF NOT EXISTS test1 (id serial PRIMARY KEY, qa text, ans text);") 
         print("sucessfull")
     except:
         print("failed")
@@ -36,20 +33,12 @@ def use():
 @app.route('/qa/<question>', methods=['GET', 'POST'])
 
 def qa(question):
-    #print('%s'%question)
-    # show the user profile for that user
-    
     parse.uses_netloc.append("postgres")
     url = parse.urlparse(os.environ["DATABASE_URL"])
-
     conn = psycopg2.connect( database=url.path[1:],    user=url.username,    password=url.password, host=url.hostname, port=url.port )
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS qa11 ( qa text);")
     cur.execute(sql.SQL("insert into {} values (%s)").format(sql.Identifier('qa11')),[question])
-    #cur.execute("INSERT INTO test2 (qa) VALUES (%s)", (str(question)))
- #       print("sucessfull")
-  
-  
     return 'question is  %s' % question
 
 
@@ -57,14 +46,32 @@ def qa(question):
 def ans(answer):
     parse.uses_netloc.append("postgres")
     url = parse.urlparse(os.environ["DATABASE_URL"])
-
     conn = psycopg2.connect( database=url.path[1:],    user=url.username,    password=url.password, host=url.hostname, port=url.port )
     cur = conn.cursor()
     cur.execute("CREATE TABLE IF NOT EXISTS ans11 ( ans text);")
     cur.execute(sql.SQL("insert into {} values (%s)").format(sql.Identifier('ans11')),[answer])
-    #cur.execute("INSERT INTO test2 (qa) VALUES (%s)", (str(question)))
- #       print("sucessfull")
     return 'answer is  %s' % answer
+
+@app.route('/query/<query>', methods=['GET', 'POST'])
+def query(query):
+    #conn = psycopg2.connect("dbname='db1' user='postgres' password='umer'")
+    #cur = conn.cursor()
+    
+    text1 = 'I like cat'
+    text2 = 'I like dog'
+    try:
+        float first=get_cosine(text1,text2)
+        print(first)
+        float secnd=DistJaccard(text1, text2)
+        print(secnd)
+   except:
+        print("comarision failed")
+        
+
+    
+    return 'query is  %s' % query
+
+
 
 
 def get_cosine(vec1, vec2):
@@ -83,7 +90,6 @@ def get_cosine(vec1, vec2):
     else:
         return float(numerator) / denominator
 
-
 def DistJaccard(str1, str2):
     str1 = set(str1.split())
     str2 = set(str2.split())
@@ -94,12 +100,6 @@ def text_to_vector(text):
     words = WORD.findall(text)
     return Counter(words)
 
-
-text1 = 'I like cat'
-text2 = 'I like dog'
-
-
-# Function to get the correct spelling
 def remove_spell_errors(text):
     b = TextBlob(text)
     return b.correct()
