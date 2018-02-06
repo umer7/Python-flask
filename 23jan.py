@@ -58,7 +58,8 @@ def query(query):
     #cur = conn.cursor()
     
     text1 = 'I like cat'
-    text2 = 'I like dog'
+    text2 = 'I liikee dog'
+    print(remove_spell_errors(text2))
     try:
         dis1=float(get_cosine(str(text1),str(text1)))
         print(dis1)
