@@ -60,10 +60,11 @@ def query(query):
     text1 = 'I like cat'
     text2 = 'I like dog'
     try:
-        float first=get_cosine(text1,text2)
-        print(first)
-        float secnd=DistJaccard(text1, text2)
-        print(secnd)
+        print(get_cosine(text1,text2))
+        #float first=get_cosine(text1,text2)
+        #print(first)
+        #float secnd=DistJaccard(text1, text2)
+       # print(secnd)
    except:
         print("comarision failed")
         
