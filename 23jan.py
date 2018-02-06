@@ -62,7 +62,7 @@ def query(query):
     text2=remove_spell_errors(query)
     #print(remove_spell_errors(text2))
     try:
-        dis1=float(get_cosine(str(text1),str(text1)))
+        dis1=float(get_cosine(str(text1),str(text2)))
         print(dis1)
         #float first=get_cosine(text1,text2)
         #print(first)
@@ -73,7 +73,7 @@ def query(query):
         print("cosine failed")
         
     try:
-        dis2=float(DistJaccard(str(text1),str(text1)))
+        dis2=float(DistJaccard(str(text1),str(text2)))
         print(dis2)
         #float first=get_cosine(text1,text2)
         #print(first)
