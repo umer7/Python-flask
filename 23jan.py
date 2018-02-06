@@ -60,7 +60,8 @@ def query(query):
     text1 = 'I like cat'
     text2 = 'I like dog'
     try:
-        print(get_cosine(text1,text2))
+        dis1=float(get_cosine(str(text1),str(text1)))
+        print(dis1)
         #float first=get_cosine(text1,text2)
         #print(first)
         #float secnd=DistJaccard(text1, text2)
