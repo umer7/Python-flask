@@ -8,7 +8,11 @@ from flask import Flask
 import os
 from urllib import parse
 import psycopg2
-
+from psycopg2 import sql
+import re, math
+from textblob import TextBlob
+from collections import Counter
+import operator
 
 
 app = Flask(__name__)
@@ -21,8 +25,8 @@ def use():
         url = parse.urlparse(os.environ["DATABASE_URL"])
 
         conn = psycopg2.connect( database=url.path[1:],    user=url.username,    password=url.password, host=url.hostname, port=url.port )
-        cur = conn.cursor()
-        cur.execute("CREATE TABLE IF NOT EXISTS test1 (id serial PRIMARY KEY, qa text, ans text);") 
+        #cur = conn.cursor()
+        #cur.execute("CREATE TABLE IF NOT EXISTS test1 (id serial PRIMARY KEY, qa text, ans text);") 
         print("sucessfull")
     except:
         print("failed")
@@ -40,8 +44,9 @@ def qa(question):
 
     conn = psycopg2.connect( database=url.path[1:],    user=url.username,    password=url.password, host=url.hostname, port=url.port )
     cur = conn.cursor()
-        
-    cur.execute("INSERT INTO test2 (qa) VALUES (%s)", (str(question)))
+    cur.execute("CREATE TABLE IF NOT EXISTS qa11 ( qa text);")
+    cur.execute(sql.SQL("insert into {} values (%s)").format(sql.Identifier('qa11')),[question])
+    #cur.execute("INSERT INTO test2 (qa) VALUES (%s)", (str(question)))
  #       print("sucessfull")
   
   
@@ -50,7 +55,15 @@ def qa(question):
 
 @app.route('/ans/<answer>', methods=['GET', 'POST'])
 def ans(answer):
-    # show the user profile for that user
+    parse.uses_netloc.append("postgres")
+    url = parse.urlparse(os.environ["DATABASE_URL"])
+
+    conn = psycopg2.connect( database=url.path[1:],    user=url.username,    password=url.password, host=url.hostname, port=url.port )
+    cur = conn.cursor()
+    cur.execute("CREATE TABLE IF NOT EXISTS ans11 ( ans text);")
+    cur.execute(sql.SQL("insert into {} values (%s)").format(sql.Identifier('ans11')),[answer])
+    #cur.execute("INSERT INTO test2 (qa) VALUES (%s)", (str(question)))
+ #       print("sucessfull")
     return 'answer is  %s' % answer
 
 if __name__ == '__main__':
