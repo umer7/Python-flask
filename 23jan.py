@@ -60,7 +60,7 @@ def query(query):
     cur = conn.cursor()
     #cur.execute("SELECT * FROM qa11 ;")
     #cur.execute("CREATE TABLE IF NOT EXISTS qa11 ( qa text);")
-    print(cur.fetchone())
+    #print(cur.fetchone())
     text1 = 'I like cat'
     #text2 = 'I liikee dog'
     text2=remove_spell_errors(query)
